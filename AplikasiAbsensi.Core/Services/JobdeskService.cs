@@ -69,6 +69,12 @@ namespace AplikasiAbsensi.Core.Services
             Console.Write("Masukkan nama jobdesk: ");
             string deskripsi = Console.ReadLine();
 
+            if (string.IsNullOrWhiteSpace(deskripsi))
+            {
+                Console.WriteLine("Nama jobdesk tidak boleh kosong. Jobdesk tidak disimpan.");
+                return;
+            }
+
             var jobdesk = new JobDesk
             {
                 IdJobdesk = jobdeskList.Count + 1,
@@ -88,10 +94,17 @@ namespace AplikasiAbsensi.Core.Services
                 }
             }
 
+            if (jobdesk.TugasUtama.Count == 0)
+            {
+                Console.WriteLine("Jobdesk harus memiliki setidaknya satu tugas utama. Jobdesk tidak disimpan.");
+                return;
+            }
+
             JobdeskHelper.TambahJobdesk(jobdesk);
             jobdeskList = JobdeskHelper.LoadJobdesk();
             Console.WriteLine("Jobdesk ditambahkan.");
         }
+
 
         public void TampilkanJobdesk()
         {
