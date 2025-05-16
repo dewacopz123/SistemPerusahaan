@@ -40,12 +40,19 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
                 Jobdesks = karyawan.Jobdesks.Count > 0 ? karyawan.Jobdesks : new List<string> { "Belum ada jobdesk." }
             });
         }*/
-
-        [HttpGet]
+        [HttpGet("karyawan")]
         public IActionResult GetKaryawan()
         {
             var karyawanList = KaryawanHelper.LoadKaryawan();
             return Ok(karyawanList);
         }
+
+        [HttpGet("jobdesk")]
+        public IActionResult GetJobDesk()
+        {
+            var jobdeskList = JobdeskHelper.LoadJobdesk();
+            return Ok(jobdeskList);
+        }
+
     }
 }
