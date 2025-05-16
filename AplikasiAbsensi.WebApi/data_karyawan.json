@@ -1,5 +1,5 @@
 [
-  {
+   {
     "Id_Karyawan": 1,
     "Nama_Karyawan": "edit2",
     "Email_Karyawan": "emailedit2",
@@ -15,10 +15,10 @@
   },
   {
     "Id_Karyawan": 2,
-    "Nama_Karyawan": "ubah2",
-    "Email_Karyawan": "",
-    "Phone_Karyawan": "",
-    "Role": 0,
+    "Nama_Karyawan": "fadli",
+    "Email_Karyawan": "fadliemail",
+    "Phone_Karyawan": "0896",
+    "Role": 2,
     "Status": 0,
     "Gaji": 0,
     "Jobdesks": [],
@@ -26,7 +26,7 @@
     "CheckOutTime": null,
     "Waktu": "2025-05-16T18:23:04.4939364+07:00",
     "Tipe": null
-  },
+  }
   {
     "Id_Karyawan": 3,
     "Nama_Karyawan": "edit3",

@@ -16,6 +16,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AplikasiAbsensi.CLI\AplikasiAbsensi.CLI.csproj" />
+    <ProjectReference Include="..\AplikasiAbsensi.Core\AplikasiAbsensi.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="data_karyawan.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

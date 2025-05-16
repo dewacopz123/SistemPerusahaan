@@ -1,23 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AplikasiAbsensi.Core.Models
 {
     public class Karyawan
     {
+        [JsonPropertyName("Id_Karyawan")]
         public int Id_Karyawan { get; set; }
+
+        [JsonPropertyName("Nama_Karyawan")]
         public string Nama_Karyawan { get; set; }
+
+        [JsonPropertyName("Email_Karyawan")]
         public string Email_Karyawan { get; set; }
+
+        [JsonPropertyName("Phone_Karyawan")]
         public string Phone_Karyawan { get; set; }
+
+        [JsonPropertyName("Role")]
         public int Role { get; set; }
+
+        [JsonPropertyName("Status")]
         public int Status { get; set; }
+
+        [JsonPropertyName("Gaji")]
         public int Gaji { get; set; }
+
+        [JsonPropertyName("Jobdesks")]
         public List<string> Jobdesks { get; set; }
+
+        [JsonPropertyName("CheckInTime")]
         public DateTime? CheckInTime { get; set; }
+
+        [JsonPropertyName("CheckOutTime")]
         public DateTime? CheckOutTime { get; set; }
+
+        [JsonPropertyName("Waktu")]
         public DateTime Waktu { get; set; }
+
+        [JsonPropertyName("Tipe")]
         public string Tipe { get; set; }
 
+        public Karyawan() { }
 
         public Karyawan(int id_Karyawan, string nama_Karyawan, string email_Karyawan, string phone_Karyawan, int role, int status, int gaji)
         {
