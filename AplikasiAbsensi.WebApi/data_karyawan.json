@@ -42,5 +42,20 @@
     "CheckOutTime": null,
     "Waktu": "2025-05-16T18:23:04.4939364+07:00",
     "Tipe": null
+  },
+  {
+    "Id_Karyawan": 3,
+    "Nama_Karyawan": "tes",
+    "Email_Karyawan": "tesemail",
+    "Phone_Karyawan": "0812",
+    "Role": 1,
+    "Status": 1,
+    "Gaji": 0,
+    "JobdeskId": 0,
+    "Jobdesk": null,
+    "CheckInTime": null,
+    "CheckOutTime": null,
+    "Waktu": "2025-05-16T22:24:40.1613573+07:00",
+    "Tipe": null
   }
 ]

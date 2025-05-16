@@ -119,7 +119,8 @@ namespace AplikasiAbsensi.Core
             Console.Write("Pilih status (angka): ");
             int.TryParse(Console.ReadLine(), out int status);
 
-            var instance = Activator.CreateInstance(typeof(T), id, nama, email, telepon, role, status, 0);
+            var instance = Activator.CreateInstance(typeof(T), id, nama, email, telepon, role, status, 0, 0);
+
             if (instance is T karyawan)
             {
                 daftarKaryawan.Add(karyawan);
