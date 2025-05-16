@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using AplikasiAbsensi.Core.Models;
 
-namespace AplikasiAbsensi.Core.Services
+namespace AplikasiAbsensi.Core.Helper
 {
     public static class JobdeskHelper
     {

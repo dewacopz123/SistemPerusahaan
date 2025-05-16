@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AplikasiAbsensi.Core.Models;
-using AplikasiAbsensi.Core.Services;
+using AplikasiAbsensi.Core.Helpers;
+using AplikasiAbsensi.Core.Helper;
 
-namespace AplikasiAbsensi.Core
+namespace AplikasiAbsensi.Core.Services
 {
     public class PresensiService
     {
@@ -13,6 +15,7 @@ namespace AplikasiAbsensi.Core
         public PresensiService(List<Karyawan> karyawanList)
         {
             daftarKaryawan = karyawanList;
+            daftarPresensi = PresensiHelper.LoadPresensi(); // Load riwayat dari file JSON
         }
 
         public void PilihMenuPresensi()
@@ -67,10 +70,12 @@ namespace AplikasiAbsensi.Core
                     if (karyawanIndex == 0) break;
 
                     karyawanIndex--;
-                    if (karyawanIndex >= 0 && karyawanIndex < daftarKaryawan.Count)
+                    if (karyawanIndex >= 0 && karyawanIndex < daftarKaryawanFiltered.Count)
                     {
+                        var karyawan = daftarKaryawanFiltered[karyawanIndex];
+
                         Console.Clear();
-                        Console.WriteLine($"Presensi untuk {daftarKaryawan[karyawanIndex].Nama_Karyawan}");
+                        Console.WriteLine($"Presensi untuk {karyawan.Nama_Karyawan}");
                         Console.WriteLine("1. Check-in");
                         Console.WriteLine("2. Check-out");
                         Console.Write("Nomor aksi: ");
@@ -79,11 +84,11 @@ namespace AplikasiAbsensi.Core
                         {
                             if (aksiPresensi == 1)
                             {
-                                CheckIn(karyawanIndex);
+                                CheckIn(karyawan);
                             }
                             else if (aksiPresensi == 2)
                             {
-                                CheckOut(karyawanIndex);
+                                CheckOut(karyawan);
                             }
                             else
                             {
@@ -114,12 +119,11 @@ namespace AplikasiAbsensi.Core
             }
         }
 
-
-
-        private void CheckIn(int karyawanIndex)
+        private void CheckIn(Karyawan karyawan)
         {
-            var karyawan = daftarKaryawan[karyawanIndex];
-            if (karyawan.CheckInTime == null)
+            var sudahPresensi = daftarPresensi.Any(p => p.Id_Karyawan == karyawan.Id_Karyawan && p.Tipe == "Check-in" && p.Waktu.Date == DateTime.Now.Date);
+
+            if (!sudahPresensi)
             {
                 karyawan.CheckInTime = DateTime.Now;
                 karyawan.Tipe = "Check-in";
@@ -131,26 +135,35 @@ namespace AplikasiAbsensi.Core
             }
             else
             {
-                Console.WriteLine($"{karyawan.Nama_Karyawan} sudah melakukan check-in sebelumnya.");
+                Console.WriteLine($"{karyawan.Nama_Karyawan} sudah melakukan check-in hari ini.");
             }
         }
 
-        private void CheckOut(int karyawanIndex)
+        private void CheckOut(Karyawan karyawan)
         {
-            var karyawan = daftarKaryawan[karyawanIndex];
-            if (karyawan.CheckInTime == null)
+            var sudahCheckIn = daftarPresensi.FirstOrDefault(p => p.Id_Karyawan == karyawan.Id_Karyawan && p.Tipe == "Check-in" && p.Waktu.Date == DateTime.Now.Date);
+
+            if (sudahCheckIn != null)
             {
-                Console.WriteLine($"{karyawan.Nama_Karyawan} belum melakukan check-in.");
+                var sudahCheckout = daftarPresensi.Any(p => p.Id_Karyawan == karyawan.Id_Karyawan && p.Tipe == "Check-out" && p.Waktu.Date == DateTime.Now.Date);
+                if (!sudahCheckout)
+                {
+                    karyawan.CheckOutTime = DateTime.Now;
+                    karyawan.Tipe = "Check-out";
+                    karyawan.Waktu = DateTime.Now;
+
+                    Console.WriteLine($"{karyawan.Nama_Karyawan} berhasil check-out pada {karyawan.CheckOutTime.Value}");
+
+                    SimpanPresensi(karyawan);
+                }
+                else
+                {
+                    Console.WriteLine($"{karyawan.Nama_Karyawan} sudah check-out hari ini.");
+                }
             }
             else
             {
-                karyawan.CheckOutTime = DateTime.Now;
-                karyawan.Tipe = "Check-out";
-                karyawan.Waktu = DateTime.Now;
-
-                Console.WriteLine($"{karyawan.Nama_Karyawan} berhasil check-out pada {karyawan.CheckOutTime.Value}");
-
-                SimpanPresensi(karyawan);
+                Console.WriteLine($"{karyawan.Nama_Karyawan} belum melakukan check-in.");
             }
         }
 
@@ -174,8 +187,8 @@ namespace AplikasiAbsensi.Core
             };
 
             daftarPresensi.Add(log);
+            PresensiHelper.SimpanPresensi(daftarPresensi); // Simpan ke JSON
         }
-
 
         private void TampilkanRiwayatPresensi()
         {
@@ -188,9 +201,9 @@ namespace AplikasiAbsensi.Core
             }
             else
             {
-                foreach (var presensi in daftarPresensi)
+                foreach (var presensi in daftarPresensi.OrderBy(p => p.Waktu))
                 {
-                    Console.WriteLine($"[{presensi.Waktu}] {presensi.Nama_Karyawan} - {presensi.Tipe}");
+                    Console.WriteLine($"[{presensi.Waktu:yyyy-MM-dd HH:mm}] {presensi.Nama_Karyawan} - {presensi.Tipe}");
                 }
             }
 

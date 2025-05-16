@@ -1,0 +1,32 @@
+[
+  {
+    "Id_Karyawan": 1,
+    "Nama_Karyawan": "edit2",
+    "Email_Karyawan": "emailedit2",
+    "Phone_Karyawan": "010",
+    "Role": 1,
+    "Status": 1,
+    "Gaji": 0,
+    "JobdeskId": 1,
+    "Jobdesk": null,
+    "CheckInTime": "2025-05-16T23:54:46.5916419+07:00",
+    "CheckOutTime": null,
+    "Waktu": "2025-05-16T23:54:46.5916671+07:00",
+    "Tipe": "Check-in"
+  },
+  {
+    "Id_Karyawan": 1,
+    "Nama_Karyawan": "edit2",
+    "Email_Karyawan": "emailedit2",
+    "Phone_Karyawan": "010",
+    "Role": 1,
+    "Status": 1,
+    "Gaji": 0,
+    "JobdeskId": 1,
+    "Jobdesk": null,
+    "CheckInTime": null,
+    "CheckOutTime": "2025-05-16T23:55:02.3284017+07:00",
+    "Waktu": "2025-05-16T23:55:02.3284026+07:00",
+    "Tipe": "Check-out"
+  }
+]
