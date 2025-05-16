@@ -22,7 +22,7 @@ namespace AplikasiAbsensi.Core
 
         public MengelolaKaryawan()
         {
-            daftarKaryawan = JsonHelper.LoadKaryawan().Cast<T>().ToList();
+            daftarKaryawan = KaryawanHelper.LoadKaryawan().Cast<T>().ToList();
             ResetIdKaryawan();
         }
 
@@ -71,7 +71,7 @@ namespace AplikasiAbsensi.Core
 
         private void TampilkanDaftarKaryawan()
         {
-            daftarKaryawan = JsonHelper.LoadKaryawan().Cast<T>().ToList();
+            daftarKaryawan = KaryawanHelper.LoadKaryawan().Cast<T>().ToList();
 
             Console.WriteLine("\n--- Daftar Karyawan ---");
             int index = 1;

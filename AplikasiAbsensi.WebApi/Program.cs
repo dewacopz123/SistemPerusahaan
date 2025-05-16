@@ -19,11 +19,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// Jalankan menu di thread terpisah
 Task.Run(() =>
 {
-    Menu menu = new Menu();
+    MenuService menu = new MenuService();
     menu.TampilkanMenu();
 });
 
-app.Run(); // Web API tetap berjalan
+app.Run();

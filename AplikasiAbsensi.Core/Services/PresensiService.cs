@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using AplikasiAbsensi.Core.Models;
 
-namespace AplikasiAbsensi.Core
+namespace AplikasiAbsensi.Core.Services
 {
-    public class Presensi
+    public class PresensiService
     {
         private List<Karyawan> daftarKaryawan;
         private List<Karyawan> daftarPresensi = new();
 
-        public Presensi(List<Karyawan> karyawanList)
+        public PresensiService(List<Karyawan> karyawanList)
         {
             daftarKaryawan = karyawanList;
         }

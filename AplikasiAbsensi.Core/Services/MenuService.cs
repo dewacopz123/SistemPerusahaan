@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace AplikasiAbsensi.Core.Services
 {
-    public class Menu
+    public class MenuService
     {
         private List<Karyawan> daftarKaryawan = new();
         private LogManager<Karyawan> logManager = new();
@@ -45,7 +45,7 @@ namespace AplikasiAbsensi.Core.Services
                     case "2":
                         KaryawanService service = new KaryawanService();
                         daftarKaryawan = service.GetSampleKaryawan();
-                        Presensi presensi = new Presensi(daftarKaryawan);
+                        PresensiService presensi = new PresensiService(daftarKaryawan);
                         presensi.PilihMenuPresensi();
                         break;
                     case "3":
