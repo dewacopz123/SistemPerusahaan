@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using AplikasiAbsensi.Core.Models;
+using AplikasiAbsensi.Core.Services;
 
 namespace AplikasiAbsensi.Core
 {
-    public class Presensi
+    public class PresensiService
     {
         private List<Karyawan> daftarKaryawan;
         private List<Karyawan> daftarPresensi = new();
 
-        public Presensi(List<Karyawan> karyawanList)
+        public PresensiService(List<Karyawan> karyawanList)
         {
             daftarKaryawan = karyawanList;
         }
@@ -48,13 +49,15 @@ namespace AplikasiAbsensi.Core
 
         private void MenuPilihKaryawan()
         {
+            daftarKaryawan = KaryawanHelper.LoadKaryawan().Cast<Karyawan>().ToList();
+            var daftarKaryawanFiltered = daftarKaryawan.Where(k => k.Role != Role.Manager).ToList();
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("=== Pilih Karyawan ===");
-                for (int i = 0; i < daftarKaryawan.Count; i++)
+                for (int i = 0; i < daftarKaryawanFiltered.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {daftarKaryawan[i].Nama_Karyawan}");
+                    Console.WriteLine($"{i + 1}. {daftarKaryawanFiltered[i].Nama_Karyawan}");
                 }
                 Console.WriteLine("0. Kembali");
                 Console.Write("Nomor karyawan: ");
@@ -153,22 +156,26 @@ namespace AplikasiAbsensi.Core
 
         private void SimpanPresensi(Karyawan karyawan)
         {
-           /* var log = new Karyawan(
+            var log = new Karyawan(
                 karyawan.Id_Karyawan,
                 karyawan.Nama_Karyawan,
                 karyawan.Email_Karyawan,
                 karyawan.Phone_Karyawan,
                 karyawan.Role,
                 karyawan.Status,
-                karyawan.Gaji
+                karyawan.Gaji,
+                karyawan.JobdeskId
             )
             {
                 Tipe = karyawan.Tipe,
-                Waktu = karyawan.Waktu
+                Waktu = karyawan.Waktu,
+                CheckInTime = karyawan.CheckInTime,
+                CheckOutTime = karyawan.CheckOutTime
             };
 
-            daftarPresensi.Add(log);*/
+            daftarPresensi.Add(log);
         }
+
 
         private void TampilkanRiwayatPresensi()
         {

@@ -43,11 +43,9 @@ namespace AplikasiAbsensi.Core.Services
                         //LihatJobdeskViaApi(); 
                         break;
                     case "2":
-                        /*KaryawanService service = new KaryawanService();
-                        daftarKaryawan = service.GetSampleKaryawan();
                         PresensiService presensi = new PresensiService(daftarKaryawan);
                         presensi.PilihMenuPresensi();
-                        break;*/
+                        break;
                     case "3":
                         jobdeskService.TampilkanMenuJobdesk(daftarKaryawan);
                         break;
