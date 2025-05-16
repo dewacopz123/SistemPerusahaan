@@ -1,4 +1,5 @@
 ﻿using AplikasiAbsensi.Core.Helper;
+using AplikasiAbsensi.Core.Helpers;
 using AplikasiAbsensi.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -52,6 +53,13 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
         {
             var jobdeskList = JobdeskHelper.LoadJobdesk();
             return Ok(jobdeskList);
+        }
+        
+        [HttpGet("presensi")]
+        public IActionResult GetPresensi()
+        {
+            var presensiList = PresensiHelper.LoadPresensi();
+            return Ok(presensiList);
         }
 
     }
