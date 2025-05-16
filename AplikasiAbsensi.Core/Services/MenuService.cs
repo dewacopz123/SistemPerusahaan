@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace AplikasiAbsensi.Core.Services
 {
-    public class MenuService
+    public class Menu
     {
         private List<Karyawan> daftarKaryawan = new();
         private LogManager<Karyawan> logManager = new();

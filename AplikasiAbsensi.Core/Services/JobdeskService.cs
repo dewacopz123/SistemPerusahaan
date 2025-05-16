@@ -1,31 +1,34 @@
 ﻿using AplikasiAbsensi.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using AplikasiAbsensi.Core.Services;
 
 namespace AplikasiAbsensi.Core.Services
 {
     public class JobdeskService
     {
-        private List<string> jobdeskList = new List<string>();
+        private List<JobDesk> jobdeskList;
         private List<Karyawan> daftarKaryawan;
 
         public JobdeskService()
         {
-            daftarKaryawan = new KaryawanService().GetSampleKaryawan();
+            jobdeskList = JobdeskHelper.LoadJobdesk();
         }
 
         public void TampilkanMenuJobdesk(List<Karyawan> daftarKaryawan)
         {
+            this.daftarKaryawan = daftarKaryawan;
             bool lanjut = true;
 
             var menuActions = new Dictionary<string, Action>
-    {
-        { "1", () => TambahJobdesk() },
-        { "2", () => TampilkanJobdesk() },
-        { "3", () => HapusJobdesk() },
-        { "4", () => BerikanJobdeskKeKaryawan() },
-        { "5", () => TampilkanJobdeskKaryawan() }
-    };
+            {
+                { "1", TambahJobdesk },
+                { "2", TampilkanJobdesk },
+                { "3", HapusJobdesk },
+                { "4", BerikanJobdeskKeKaryawan },
+                { "5", TampilkanJobdeskKaryawan }
+            };
 
             while (lanjut)
             {
@@ -61,24 +64,39 @@ namespace AplikasiAbsensi.Core.Services
             }
         }
 
-
         public void TambahJobdesk()
         {
-            Console.Write("Masukkan jobdesk baru: ");
-            string jobdesk = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(jobdesk))
+            Console.Write("Masukkan nama jobdesk: ");
+            string deskripsi = Console.ReadLine();
+
+            var jobdesk = new JobDesk
             {
-                jobdeskList.Add(jobdesk);
-                Console.WriteLine("Jobdesk ditambahkan.");
-            }
-            else
+                IdJobdesk = jobdeskList.Count + 1,
+                NamaJobdesk = deskripsi,
+                TugasUtama = new List<string>()
+            };
+
+            Console.Write("Masukkan jumlah tugas utama: ");
+            if (int.TryParse(Console.ReadLine(), out int jumlah))
             {
-                Console.WriteLine("Jobdesk tidak boleh kosong.");
+                for (int i = 0; i < jumlah; i++)
+                {
+                    Console.Write($"Tugas #{i + 1}: ");
+                    var tugas = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(tugas))
+                        jobdesk.TugasUtama.Add(tugas);
+                }
             }
+
+            JobdeskHelper.TambahJobdesk(jobdesk);
+            jobdeskList = JobdeskHelper.LoadJobdesk();
+            Console.WriteLine("Jobdesk ditambahkan.");
         }
 
         public void TampilkanJobdesk()
         {
+            jobdeskList = JobdeskHelper.LoadJobdesk();
+
             if (jobdeskList.Count == 0)
             {
                 Console.WriteLine("Belum ada jobdesk.");
@@ -86,27 +104,27 @@ namespace AplikasiAbsensi.Core.Services
             }
 
             Console.WriteLine("Daftar Jobdesk:");
-            for (int i = 0; i < jobdeskList.Count; i++)
+            foreach (var j in jobdeskList)
             {
-                Console.WriteLine($"{i + 1}. {jobdeskList[i]}");
+                Console.WriteLine($"{j.IdJobdesk}. {j.NamaJobdesk} - Tugas: {string.Join(", ", j.TugasUtama)}");
             }
         }
 
         public void HapusJobdesk()
         {
             TampilkanJobdesk();
-            Console.Write("Masukkan nomor jobdesk yang ingin dihapus: ");
-            if (int.TryParse(Console.ReadLine(), out int index))
+            Console.Write("Masukkan ID jobdesk yang ingin dihapus: ");
+            if (int.TryParse(Console.ReadLine(), out int id))
             {
-                index--;
-                if (index >= 0 && index < jobdeskList.Count)
+                bool berhasil = JobdeskHelper.HapusJobdesk(id);
+                if (berhasil)
                 {
-                    Console.WriteLine($"Jobdesk \"{jobdeskList[index]}\" dihapus.");
-                    jobdeskList.RemoveAt(index);
+                    Console.WriteLine("Jobdesk dihapus.");
+                    jobdeskList = JobdeskHelper.LoadJobdesk();
                 }
                 else
                 {
-                    Console.WriteLine("Nomor tidak valid.");
+                    Console.WriteLine("ID jobdesk tidak ditemukan.");
                 }
             }
             else
@@ -130,18 +148,19 @@ namespace AplikasiAbsensi.Core.Services
                 if (karyawanIndex >= 0 && karyawanIndex < daftarKaryawan.Count)
                 {
                     TampilkanJobdesk();
-                    Console.Write("Nomor jobdesk yang ingin diberikan: ");
-                    if (int.TryParse(Console.ReadLine(), out int jobdeskIndex))
+                    Console.Write("ID jobdesk yang ingin diberikan: ");
+                    if (int.TryParse(Console.ReadLine(), out int jobdeskId))
                     {
-                        jobdeskIndex--;
-                        if (jobdeskIndex >= 0 && jobdeskIndex < jobdeskList.Count)
+                        var jobdesk = JobdeskHelper.GetById(jobdeskId);
+                        if (jobdesk != null)
                         {
-                            daftarKaryawan[karyawanIndex].Jobdesks.Add(jobdeskList[jobdeskIndex]);
+                            daftarKaryawan[karyawanIndex].Jobdesk = jobdesk;
+                            KaryawanHelper.SimpanData(daftarKaryawan);
                             Console.WriteLine("Jobdesk diberikan!");
                         }
                         else
                         {
-                            Console.WriteLine("Nomor jobdesk tidak valid.");
+                            Console.WriteLine("Jobdesk tidak ditemukan.");
                         }
                     }
                 }
@@ -154,40 +173,18 @@ namespace AplikasiAbsensi.Core.Services
 
         public void TampilkanJobdeskKaryawan()
         {
-            Console.WriteLine("Pilih Karyawan:");
-            for (int i = 0; i < daftarKaryawan.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {daftarKaryawan[i].Nama_Karyawan}");
-            }
+            daftarKaryawan = KaryawanHelper.LoadKaryawan().Cast<Karyawan>().ToList();
+            var daftarKaryawanFiltered = daftarKaryawan.Where(k => k.Role != Role.Manager).ToList();
 
-            Console.Write("Nomor karyawan: ");
-            if (int.TryParse(Console.ReadLine(), out int index))
+            Console.WriteLine("Jobdesk Karyawan:");
+            int idx = 1;
+            foreach (var k in daftarKaryawanFiltered)
             {
-                index--;
-                if (index >= 0 && index < daftarKaryawan.Count)
-                {
-                    var karyawan = daftarKaryawan[index];
-                    Console.WriteLine($"Jobdesk {karyawan.Nama_Karyawan}:");
-                    if (karyawan.Jobdesks.Count == 0)
-                    {
-                        Console.WriteLine("Belum ada jobdesk.");
-                    }
-                    else
-                    {
-                        for (int i = 0; i < karyawan.Jobdesks.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {karyawan.Jobdesks[i]}");
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Nomor karyawan tidak valid.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Input bukan angka.");
+                string tugas = k.Jobdesk != null && k.Jobdesk.TugasUtama.Any()
+                    ? string.Join(", ", k.Jobdesk.TugasUtama)
+                    : "Tidak Ada";
+                Console.WriteLine($"{idx}. {k.Nama_Karyawan} - {tugas}");
+                idx++;
             }
         }
     }

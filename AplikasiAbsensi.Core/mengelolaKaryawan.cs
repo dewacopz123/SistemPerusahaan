@@ -9,8 +9,8 @@ namespace AplikasiAbsensi.Core
     public class MengelolaKaryawan<T> where T : Karyawan
     {
         private List<T> daftarKaryawan;
-        private readonly KaryawanService karyawanService = new();
-
+/*        private readonly KaryawanService karyawanService = new();
+*/
         private static readonly Dictionary<int, string> StatusMap = new()
         {
             { 1, "Pending" },
@@ -25,7 +25,6 @@ namespace AplikasiAbsensi.Core
             daftarKaryawan = KaryawanHelper.LoadKaryawan().Cast<T>().ToList();
             ResetIdKaryawan();
         }
-
 
         public void TampilkanMenukaryawan()
         {
@@ -75,14 +74,13 @@ namespace AplikasiAbsensi.Core
 
             Console.WriteLine("\n--- Daftar Karyawan ---");
             int index = 1;
-            foreach (var k in daftarKaryawan.Where(k => k.Role != 2))
+            foreach (var k in daftarKaryawan.Where(k => k.Role != Role.Manager))
             {
                 string status = StatusMap.ContainsKey(k.Status) ? StatusMap[k.Status] : "Tidak Diketahui";
-                Console.WriteLine($"{index}. {k.Nama_Karyawan} - {k.Email_Karyawan} - {k.Phone_Karyawan} - Status: {status}");
+                Console.WriteLine($"{index}. {k.Nama_Karyawan} - {k.Email_Karyawan} - {k.Phone_Karyawan} - Role: {k.Role} - Status: {status}");
                 index++;
             }
         }
-
 
         private void TambahKaryawan()
         {
@@ -98,12 +96,18 @@ namespace AplikasiAbsensi.Core
             Console.Write("Telepon: ");
             string telepon = Console.ReadLine();
 
-            Console.Write("Role (angka): ");
-            int.TryParse(Console.ReadLine(), out int role);
+            Console.WriteLine("Pilih Role (Karyawan / Manager / Staff): ");
+            string roleInput = Console.ReadLine();
 
-            if (role == 2 || role == 3)
+            if (!Enum.TryParse(roleInput, true, out Role role))
             {
-                Console.WriteLine("Role 2 dan 3 tidak diperbolehkan.");
+                Console.WriteLine("Input role tidak valid.");
+                return;
+            }
+
+            if (role == Role.Manager || role == Role.Staff)
+            {
+                Console.WriteLine("Role Manager dan Staff tidak diperbolehkan.");
                 return;
             }
 
@@ -131,8 +135,6 @@ namespace AplikasiAbsensi.Core
             }
         }
 
-
-
         private void EditKaryawan()
         {
             TampilkanDaftarKaryawan();
@@ -140,7 +142,7 @@ namespace AplikasiAbsensi.Core
             int.TryParse(Console.ReadLine(), out int nomor);
             int index = nomor - 1;
 
-            var karyawanList = daftarKaryawan.Where(k => k.Role != 2).ToList();
+            var karyawanList = daftarKaryawan.Where(k => k.Role != Role.Manager).ToList();
 
             if (index >= 0 && index < karyawanList.Count)
             {
@@ -160,9 +162,22 @@ namespace AplikasiAbsensi.Core
                 string telepon = Console.ReadLine();
                 if (!string.IsNullOrEmpty(telepon)) karyawan.Phone_Karyawan = telepon;
 
-                Console.Write("Role Baru (angka): ");
-                int.TryParse(Console.ReadLine(), out int role);
-                if (role != 2) karyawan.Role = role;
+                Console.Write("Role Baru (Karyawan / Manager / Staff): ");
+                string roleInput = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(roleInput))
+                {
+                    if (Enum.TryParse(roleInput, true, out Role roleBaru))
+                    {
+                        if (roleBaru != Role.Manager)
+                            karyawan.Role = roleBaru;
+                        else
+                            Console.WriteLine("Role Manager tidak diperbolehkan.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Input role tidak valid. Role tidak diubah.");
+                    }
+                }
 
                 Console.WriteLine("Status Baru:");
                 foreach (var s in StatusMap)
@@ -189,7 +204,7 @@ namespace AplikasiAbsensi.Core
             int.TryParse(Console.ReadLine(), out int nomor);
             int index = nomor - 1;
 
-            var karyawanList = daftarKaryawan.Where(k => k.Role != 2).ToList();
+            var karyawanList = daftarKaryawan.Where(k => k.Role != Role.Manager).ToList();
 
             if (index >= 0 && index < karyawanList.Count)
             {
@@ -209,15 +224,14 @@ namespace AplikasiAbsensi.Core
             }
         }
 
-
         private void ResetIdKaryawan()
         {
             int newId = 1;
-            foreach (var k in daftarKaryawan.Where(k => k.Role != 2))
+            foreach (var k in daftarKaryawan.Where(k => k.Role != Role.Manager))
             {
                 k.Id_Karyawan = newId++;
             }
-            KaryawanHelper.SimpanData(daftarKaryawan); 
+            KaryawanHelper.SimpanData(daftarKaryawan);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AplikasiAbsensi.Core.Models
 {
@@ -9,17 +8,20 @@ namespace AplikasiAbsensi.Core.Models
         public string Nama_Karyawan { get; set; }
         public string Email_Karyawan { get; set; }
         public string Phone_Karyawan { get; set; }
-        public int Role { get; set; }
+
+        public Role Role { get; set; } 
         public int Status { get; set; }
         public int Gaji { get; set; }
-        public List<string> Jobdesks { get; set; }
+
+        public int JobdeskId { get; set; }
+        public JobDesk Jobdesk { get; set; }
+
         public DateTime? CheckInTime { get; set; }
         public DateTime? CheckOutTime { get; set; }
         public DateTime Waktu { get; set; }
         public string Tipe { get; set; }
 
-
-        public Karyawan(int id_Karyawan, string nama_Karyawan, string email_Karyawan, string phone_Karyawan, int role, int status, int gaji)
+        public Karyawan(int id_Karyawan, string nama_Karyawan, string email_Karyawan, string phone_Karyawan, Role role, int status, int gaji, int jobdeskId)
         {
             Id_Karyawan = id_Karyawan;
             Nama_Karyawan = nama_Karyawan;
@@ -28,21 +30,12 @@ namespace AplikasiAbsensi.Core.Models
             Role = role;
             Status = status;
             Gaji = gaji;
-            Jobdesks = new List<string>();
+            JobdeskId = jobdeskId;
+            Jobdesk = null;
             CheckInTime = null;
             CheckOutTime = null;
             Waktu = DateTime.Now;
             Tipe = null;
-        }
-
-        public override string ToString()
-        {
-            return $"{Nama_Karyawan} ({Id_Karyawan}) - {Role}";
-        }
-
-        public class RecordPresensi
-        {
-            // "Check-in" atau "Check-out"
         }
     }
 }
