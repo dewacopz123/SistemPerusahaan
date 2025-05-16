@@ -7,7 +7,16 @@
     "Role": 1,
     "Status": 1,
     "Gaji": 0,
-    "Jobdesks": [],
+    "JobdeskId": 1,
+    "Jobdesk": {
+      "IdJobdesk": 1,
+      "NamaJobdesk": "Developer",
+      "TugasUtama": [
+        "Coding",
+        "Debugging",
+        "Code Review"
+      ]
+    },
     "CheckInTime": null,
     "CheckOutTime": null,
     "Waktu": "2025-05-16T18:14:25.9812301+07:00",
@@ -15,30 +24,23 @@
   },
   {
     "Id_Karyawan": 2,
-    "Nama_Karyawan": "fadli",
-    "Email_Karyawan": "fadliemail",
-    "Phone_Karyawan": "0896",
-    "Role": 2,
+    "Nama_Karyawan": "ubah2",
+    "Email_Karyawan": "emailubah2",
+    "Phone_Karyawan": "123",
+    "Role": 1,
     "Status": 0,
     "Gaji": 0,
-    "Jobdesks": [],
+    "JobdeskId": 2,
+    "Jobdesk": {
+      "IdJobdesk": 2,
+      "NamaJobdesk": "tes",
+      "TugasUtama": [
+        "tes1"
+      ]
+    },
     "CheckInTime": null,
     "CheckOutTime": null,
     "Waktu": "2025-05-16T18:23:04.4939364+07:00",
-    "Tipe": null
-  }
-  {
-    "Id_Karyawan": 3,
-    "Nama_Karyawan": "edit3",
-    "Email_Karyawan": "",
-    "Phone_Karyawan": "",
-    "Role": 0,
-    "Status": 0,
-    "Gaji": 0,
-    "Jobdesks": [],
-    "CheckInTime": null,
-    "CheckOutTime": null,
-    "Waktu": "2025-05-16T18:24:45.7896609+07:00",
     "Tipe": null
   }
 ]

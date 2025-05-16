@@ -19,9 +19,9 @@ namespace AplikasiAbsensi.Core.Services
 
             bool lanjut = true;
             var kelola = new MengelolaKaryawan<Karyawan>();
-            var penggajihan = new Penggajihan(null); // tidak pakai KaryawanService
-            JobdeskService jobdeskService = new JobdeskService();
-
+/*            var karyawanService = new KaryawanService(); // ✅ ditambahkan
+*//*            var penggajihan = new Penggajihan(karyawanService); // ✅ gunakan konstruktor baru
+*/
             while (lanjut)
             {
                 Console.Clear();
@@ -44,9 +44,11 @@ namespace AplikasiAbsensi.Core.Services
                         // LihatJobdeskViaApi();
                         break;
                     case "2":
-                        PresensiService presensi = new PresensiService(new List<Karyawan> { userLogin });
+                        /*KaryawanService service = new KaryawanService();
+                        daftarKaryawan = service.GetSampleKaryawan();
+                        PresensiService presensi = new PresensiService(daftarKaryawan);
                         presensi.PilihMenuPresensi();
-                        break;
+                        break;*/
                     case "3":
                         if (userLogin.Role == 2)
                             jobdeskService.TampilkanMenuJobdesk(new List<Karyawan> { userLogin });
@@ -60,10 +62,10 @@ namespace AplikasiAbsensi.Core.Services
                             LoginService.TampilTidakPunyaAkses();
                         break;
                     case "5":
-                        if (userLogin.Role == 2)
-                            penggajihan.TampilkanMenuUtama();
-                        else
-                            LoginService.TampilTidakPunyaAkses();
+/*                        penggajihan.TampilkanMenuUtama();
+*/                        break;
+                    case "6":
+                        lanjut = false;
                         break;
                     default:
                         Console.WriteLine("❌ Pilihan tidak valid.");

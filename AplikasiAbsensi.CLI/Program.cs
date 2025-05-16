@@ -6,8 +6,8 @@ namespace AplikasiAbsensi.CLI
     {
         static void Main(string[] args)
         {
-            MenuService menu = new MenuService();
-            menu.TampilkanMenu();
+           /* MenuService menu = new MenuService();
+            menu.TampilkanMenu();*/
         }
     }
 }

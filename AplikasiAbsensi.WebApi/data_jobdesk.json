@@ -1,0 +1,18 @@
+[
+  {
+    "IdJobdesk": 1,
+    "NamaJobdesk": "Developer",
+    "TugasUtama": [
+      "Coding",
+      "Debugging",
+      "Code Review"
+    ]
+  },
+  {
+    "IdJobdesk": 2,
+    "NamaJobdesk": "tes",
+    "TugasUtama": [
+      "tes1"
+    ]
+  }
+]
