@@ -71,6 +71,8 @@ namespace AplikasiAbsensi.Core
 
         private void TampilkanDaftarKaryawan()
         {
+            daftarKaryawan = JsonHelper.LoadKaryawan().Cast<T>().ToList();
+
             Console.WriteLine("\n--- Daftar Karyawan ---");
             int index = 1;
             foreach (var k in daftarKaryawan.Where(k => k.Role != 2))
@@ -80,6 +82,7 @@ namespace AplikasiAbsensi.Core
                 index++;
             }
         }
+
 
         private void TambahKaryawan()
         {
@@ -116,17 +119,9 @@ namespace AplikasiAbsensi.Core
             if (instance is T karyawan)
             {
                 daftarKaryawan.Add(karyawan);
-                ResetIdKaryawan();
+                KaryawanHelper.SimpanData(daftarKaryawan);
 
-                // ⬇️ Tambahkan pencatatan log di sini
-                LogPerubahanHelper.TambahLog(new LogPerubahan
-                {
-                    Waktu = DateTime.Now,
-                    Aksi = "Tambah",
-                    NamaKaryawan = nama,
-                    IdKaryawan = karyawan.Id_Karyawan,
-                    Detail = $"Email: {email}, Telepon: {telepon}, Role: {role}, Status: {status}"
-                });
+                ResetIdKaryawan();
 
                 Console.WriteLine("Karyawan berhasil ditambahkan.");
             }
@@ -135,6 +130,8 @@ namespace AplikasiAbsensi.Core
                 Console.WriteLine("Gagal menambahkan karyawan.");
             }
         }
+
+
 
         private void EditKaryawan()
         {
@@ -176,6 +173,7 @@ namespace AplikasiAbsensi.Core
                 int.TryParse(Console.ReadLine(), out int statusBaru);
                 karyawan.Status = statusBaru;
 
+                KaryawanHelper.SimpanData(daftarKaryawan);
                 Console.WriteLine("Karyawan berhasil diupdate.");
             }
             else
@@ -196,8 +194,13 @@ namespace AplikasiAbsensi.Core
             if (index >= 0 && index < karyawanList.Count)
             {
                 var karyawan = karyawanList[index];
-                daftarKaryawan.Remove(karyawan);
+
+                daftarKaryawan.RemoveAll(k => k.Id_Karyawan == karyawan.Id_Karyawan);
+
                 ResetIdKaryawan();
+
+                KaryawanHelper.SimpanData(daftarKaryawan);
+
                 Console.WriteLine("Karyawan berhasil dihapus.");
             }
             else
@@ -206,6 +209,7 @@ namespace AplikasiAbsensi.Core
             }
         }
 
+
         private void ResetIdKaryawan()
         {
             int newId = 1;
@@ -213,6 +217,7 @@ namespace AplikasiAbsensi.Core
             {
                 k.Id_Karyawan = newId++;
             }
+            KaryawanHelper.SimpanData(daftarKaryawan); 
         }
     }
 }

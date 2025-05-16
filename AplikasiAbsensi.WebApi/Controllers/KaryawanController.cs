@@ -19,14 +19,9 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
             // Opsional: menambahkan jobdesk dummy (jika tidak disimpan ke DB)
             _karyawanService.GetSampleKaryawan()[0].Jobdesks.Add("Membuat laporan mingguan");
             _karyawanService.GetSampleKaryawan()[1].Jobdesks.Add("Maintenance sistem absensi");
+            
         }
 
-        // GET: api/karyawan
-        [HttpGet]
-        public ActionResult<List<Karyawan>> GetAll()
-        {
-            return Ok(_karyawanService.GetSampleKaryawan());
-        }
 
         // GET: api/karyawan/jobdesk/1
         [HttpGet("jobdesk/{id}")]
@@ -46,11 +41,11 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
             });
         }
 
-        [HttpGet("log")]
-        public IActionResult GetLog()
+        [HttpGet]
+        public IActionResult GetKaryawan()
         {
-            var logs = LogPerubahanHelper.LoadLog();
-            return Ok(logs);
+            var karyawanList = KaryawanHelper.LoadKaryawan();
+            return Ok(karyawanList);
         }
     }
 }
