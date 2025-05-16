@@ -45,5 +45,12 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
                 Jobdesks = karyawan.Jobdesks.Count > 0 ? karyawan.Jobdesks : new List<string> { "Belum ada jobdesk." }
             });
         }
+
+        [HttpGet("log")]
+        public IActionResult GetLog()
+        {
+            var logs = LogPerubahanHelper.LoadLog();
+            return Ok(logs);
+        }
     }
 }

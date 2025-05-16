@@ -22,9 +22,10 @@ namespace AplikasiAbsensi.Core
 
         public MengelolaKaryawan()
         {
-            daftarKaryawan = karyawanService.GetSampleKaryawan().Cast<T>().ToList();
+            daftarKaryawan = JsonHelper.LoadKaryawan().Cast<T>().ToList();
             ResetIdKaryawan();
         }
+
 
         public void TampilkanMenukaryawan()
         {
@@ -116,6 +117,17 @@ namespace AplikasiAbsensi.Core
             {
                 daftarKaryawan.Add(karyawan);
                 ResetIdKaryawan();
+
+                // ⬇️ Tambahkan pencatatan log di sini
+                LogPerubahanHelper.TambahLog(new LogPerubahan
+                {
+                    Waktu = DateTime.Now,
+                    Aksi = "Tambah",
+                    NamaKaryawan = nama,
+                    IdKaryawan = karyawan.Id_Karyawan,
+                    Detail = $"Email: {email}, Telepon: {telepon}, Role: {role}, Status: {status}"
+                });
+
                 Console.WriteLine("Karyawan berhasil ditambahkan.");
             }
             else

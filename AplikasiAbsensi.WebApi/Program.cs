@@ -1,32 +1,29 @@
 using AplikasiAbsensi.Core.Services;
+using System.Threading.Tasks;
 
-var argsList = args.Select(a => a.ToLower()).ToList();
+var builder = WebApplication.CreateBuilder(args);
 
-if (argsList.Contains("cli"))
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    // Mode CLI
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+// Jalankan menu di thread terpisah
+Task.Run(() =>
+{
     Menu menu = new Menu();
     menu.TampilkanMenu();
-}
-else
-{
-    // Mode Web API
-    var builder = WebApplication.CreateBuilder(args);
+});
 
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
-
-    var app = builder.Build();
-
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
-
-    app.UseHttpsRedirection();
-    app.UseAuthorization();
-    app.MapControllers();
-    app.Run();
-}
+app.Run(); // Web API tetap berjalan
