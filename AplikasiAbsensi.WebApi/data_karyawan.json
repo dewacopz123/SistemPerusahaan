@@ -57,5 +57,41 @@
     "CheckOutTime": null,
     "Waktu": "2025-05-16T22:24:40.1613573+07:00",
     "Tipe": null
+  },
+  {
+    "Id_Karyawan": 4,
+    "Nama_Karyawan": "jek",
+    "Email_Karyawan": "oejcoej",
+    "Phone_Karyawan": "1321",
+    "Role": 1,
+    "Status": 1,
+    "Gaji": 0,
+    "JobdeskId": 3,
+    "Jobdesk": {
+      "IdJobdesk": 3,
+      "NamaJobdesk": "twqitqiuet",
+      "TugasUtama": [
+        "efefef"
+      ]
+    },
+    "CheckInTime": null,
+    "CheckOutTime": null,
+    "Waktu": "2025-05-16T22:50:20.3045501+07:00",
+    "Tipe": null
+  },
+  {
+    "Id_Karyawan": 5,
+    "Nama_Karyawan": "dede",
+    "Email_Karyawan": "",
+    "Phone_Karyawan": "",
+    "Role": 1,
+    "Status": 0,
+    "Gaji": 0,
+    "JobdeskId": 0,
+    "Jobdesk": null,
+    "CheckInTime": null,
+    "CheckOutTime": null,
+    "Waktu": "2025-05-16T22:50:42.2817606+07:00",
+    "Tipe": null
   }
 ]

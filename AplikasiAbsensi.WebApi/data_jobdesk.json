@@ -14,5 +14,19 @@
     "TugasUtama": [
       "tes1"
     ]
+  },
+  {
+    "IdJobdesk": 3,
+    "NamaJobdesk": "twqitqiuet",
+    "TugasUtama": [
+      "efefef"
+    ]
+  },
+  {
+    "IdJobdesk": 4,
+    "NamaJobdesk": "ef",
+    "TugasUtama": [
+      "efefef"
+    ]
   }
 ]

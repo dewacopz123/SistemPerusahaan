@@ -135,28 +135,47 @@ namespace AplikasiAbsensi.Core.Services
 
         public void BerikanJobdeskKeKaryawan()
         {
-            Console.WriteLine("Pilih Karyawan:");
-            for (int i = 0; i < daftarKaryawan.Count; i++)
+            daftarKaryawan = KaryawanHelper.LoadKaryawan().Cast<Karyawan>().ToList(); 
+
+            var daftarKaryawanFiltered = daftarKaryawan.Where(k => k.Role != Role.Manager).ToList();
+
+            if (daftarKaryawanFiltered.Count == 0)
             {
-                Console.WriteLine($"{i + 1}. {daftarKaryawan[i].Nama_Karyawan}");
+                Console.WriteLine("Tidak ada karyawan tersedia.");
+                return;
+            }
+
+            Console.WriteLine("Pilih Karyawan:");
+            for (int i = 0; i < daftarKaryawanFiltered.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {daftarKaryawanFiltered[i].Nama_Karyawan}");
             }
 
             Console.Write("Nomor karyawan: ");
             if (int.TryParse(Console.ReadLine(), out int karyawanIndex))
             {
                 karyawanIndex--;
-                if (karyawanIndex >= 0 && karyawanIndex < daftarKaryawan.Count)
+                if (karyawanIndex >= 0 && karyawanIndex < daftarKaryawanFiltered.Count)
                 {
+                    var karyawanDipilih = daftarKaryawanFiltered[karyawanIndex];
                     TampilkanJobdesk();
+
                     Console.Write("ID jobdesk yang ingin diberikan: ");
                     if (int.TryParse(Console.ReadLine(), out int jobdeskId))
                     {
                         var jobdesk = JobdeskHelper.GetById(jobdeskId);
                         if (jobdesk != null)
                         {
-                            daftarKaryawan[karyawanIndex].Jobdesk = jobdesk;
-                            KaryawanHelper.SimpanData(daftarKaryawan);
-                            Console.WriteLine("Jobdesk diberikan!");
+                            karyawanDipilih.Jobdesk = jobdesk;
+                            karyawanDipilih.JobdeskId = jobdesk.IdJobdesk;
+
+                            var indexAsli = daftarKaryawan.FindIndex(k => k.Id_Karyawan == karyawanDipilih.Id_Karyawan);
+                            if (indexAsli != -1)
+                            {
+                                daftarKaryawan[indexAsli] = karyawanDipilih;
+                                KaryawanHelper.SimpanData(daftarKaryawan);
+                                Console.WriteLine("Jobdesk diberikan!");
+                            }
                         }
                         else
                         {
@@ -170,6 +189,8 @@ namespace AplikasiAbsensi.Core.Services
                 }
             }
         }
+
+
 
         public void TampilkanJobdeskKaryawan()
         {
