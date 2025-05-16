@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AplikasiAbsensi.CLI\AplikasiAbsensi.CLI.csproj" />
+    <ProjectReference Include="..\AplikasiAbsensi.Core\AplikasiAbsensi.Core.csproj" />
   </ItemGroup>
 
 </Project>

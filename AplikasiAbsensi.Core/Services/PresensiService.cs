@@ -153,7 +153,7 @@ namespace AplikasiAbsensi.Core
 
         private void SimpanPresensi(Karyawan karyawan)
         {
-            var log = new Karyawan(
+           /* var log = new Karyawan(
                 karyawan.Id_Karyawan,
                 karyawan.Nama_Karyawan,
                 karyawan.Email_Karyawan,
@@ -167,7 +167,7 @@ namespace AplikasiAbsensi.Core
                 Waktu = karyawan.Waktu
             };
 
-            daftarPresensi.Add(log);
+            daftarPresensi.Add(log);*/
         }
 
         private void TampilkanRiwayatPresensi()

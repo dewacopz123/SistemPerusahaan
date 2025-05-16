@@ -1,5 +1,4 @@
 using AplikasiAbsensi.Core.Services;
-using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,4 +24,4 @@ Task.Run(() =>
     menu.TampilkanMenu();
 });
 
-app.Run();
+app.Run(); 

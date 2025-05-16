@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace AplikasiAbsensi.Core.Services
 {
-    public class Menu
+    public class MenuService
     {
         private List<Karyawan> daftarKaryawan = new();
         private LogManager<Karyawan> logManager = new();
@@ -21,9 +21,9 @@ namespace AplikasiAbsensi.Core.Services
                 bool lanjut = true;
 
             var kelola = new MengelolaKaryawan<Karyawan>();
-            var karyawanService = new KaryawanService(); // ✅ ditambahkan
-            var penggajihan = new Penggajihan(karyawanService); // ✅ gunakan konstruktor baru
-
+/*            var karyawanService = new KaryawanService(); // ✅ ditambahkan
+*//*            var penggajihan = new Penggajihan(karyawanService); // ✅ gunakan konstruktor baru
+*/
             while (lanjut)
             {
                 Console.Clear();
@@ -43,11 +43,11 @@ namespace AplikasiAbsensi.Core.Services
                         //LihatJobdeskViaApi(); 
                         break;
                     case "2":
-                        KaryawanService service = new KaryawanService();
+                        /*KaryawanService service = new KaryawanService();
                         daftarKaryawan = service.GetSampleKaryawan();
                         PresensiService presensi = new PresensiService(daftarKaryawan);
                         presensi.PilihMenuPresensi();
-                        break;
+                        break;*/
                     case "3":
                         jobdeskService.TampilkanMenuJobdesk(daftarKaryawan);
                         break;
@@ -55,8 +55,8 @@ namespace AplikasiAbsensi.Core.Services
                         kelola.TampilkanMenukaryawan(); // ← hanya dipanggil jika user pilih opsi 4
                         break;
                     case "5":
-                        penggajihan.TampilkanMenuUtama();
-                        break;
+/*                        penggajihan.TampilkanMenuUtama();
+*/                        break;
                     case "6":
                         lanjut = false;
                         break;
