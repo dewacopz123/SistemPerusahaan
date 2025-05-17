@@ -1,5 +1,4 @@
 using AplikasiAbsensi.Core.Services;
-using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,4 +30,4 @@ if (!app.Environment.IsProduction())
 }
 
 
-app.Run();
+app.Run(); 

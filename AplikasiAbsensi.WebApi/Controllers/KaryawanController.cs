@@ -10,7 +10,7 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
     [Route("api/[controller]")]
     public class KaryawanController : ControllerBase
     {
-        private readonly KaryawanService _karyawanService;
+        /*private readonly KaryawanService _karyawanService;
 
         public KaryawanController()
         {
@@ -39,7 +39,7 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
                 Nama = karyawan.Nama_Karyawan,
                 Jobdesks = karyawan.Jobdesks.Count > 0 ? karyawan.Jobdesks : new List<string> { "Belum ada jobdesk." }
             });
-        }
+        }*/
 
         [HttpGet]
         public IActionResult GetKaryawan()

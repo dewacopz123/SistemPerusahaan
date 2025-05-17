@@ -6,26 +6,38 @@ namespace AplikasiAbsensi.Core.Services
     public static class KaryawanHelper
     {
         private static readonly string filePath = "data_karyawan.json";
-
-        public static void TambahKaryawan(Karyawan karyawan)
-        {
-            var data = LoadKaryawan();
-            data.Add(karyawan);
-            var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, json);
-        }
+        private static readonly string fileJobdeskPath = "data_jobdesk.json";
 
         public static List<Karyawan> LoadKaryawan()
         {
             if (!File.Exists(filePath)) return new List<Karyawan>();
+
             var json = File.ReadAllText(filePath);
-            return JsonSerializer.Deserialize<List<Karyawan>>(json) ?? new List<Karyawan>();
+            var karyawanList = JsonSerializer.Deserialize<List<Karyawan>>(json) ?? new List<Karyawan>();
+
+            // Load jobdesk list
+            List<JobDesk> jobdeskList = JobdeskHelper.LoadJobdesk();
+
+            // Pasangkan Jobdesk ke Karyawan berdasarkan JobdeskId
+            foreach (var karyawan in karyawanList)
+            {
+                karyawan.Jobdesk = jobdeskList.FirstOrDefault(j => j.IdJobdesk == karyawan.JobdeskId);
+            }
+
+            return karyawanList;
         }
 
         public static void SimpanData<T>(List<T> daftarKaryawan)
         {
             var json = JsonSerializer.Serialize(daftarKaryawan, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
+        }
+
+        public static void TambahKaryawan(Karyawan karyawan)
+        {
+            var data = LoadKaryawan();
+            data.Add(karyawan);
+            SimpanData(data);
         }
 
         public static bool HapusKaryawan(int idKaryawan)
@@ -36,9 +48,9 @@ namespace AplikasiAbsensi.Core.Services
             {
                 data.Remove(karyawan);
                 SimpanData(data);
-                return true; // sukses dihapus
+                return true;
             }
-            return false; // tidak ditemukan
+            return false;
         }
     }
 }

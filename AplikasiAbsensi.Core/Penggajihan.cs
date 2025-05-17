@@ -17,12 +17,12 @@ namespace AplikasiAbsensi.Core
         private State currentState;
         private List<Karyawan> dataKaryawan;
 
-        public Penggajihan(KaryawanService karyawanService)
+/*        public Penggajihan(KaryawanService karyawanService)
         {
             dataKaryawan = karyawanService.GetSampleKaryawan(); // gunakan referensi
             currentState = State.MenuUtama;
         }
-
+*/
         public void TampilkanMenuUtama()
         {
             while (currentState != State.Keluar)

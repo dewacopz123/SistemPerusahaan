@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using AplikasiAbsensi.Core.Models;
 
-namespace AplikasiAbsensi.Core.Services
+namespace AplikasiAbsensi.Core
 {
-    public class PresensiService
+    public class Presensi
     {
         private List<Karyawan> daftarKaryawan;
         private List<Karyawan> daftarPresensi = new();
 
-        public PresensiService(List<Karyawan> karyawanList)
+        public Presensi(List<Karyawan> karyawanList)
         {
             daftarKaryawan = karyawanList;
         }
@@ -153,7 +153,7 @@ namespace AplikasiAbsensi.Core.Services
 
         private void SimpanPresensi(Karyawan karyawan)
         {
-            var log = new Karyawan(
+           /* var log = new Karyawan(
                 karyawan.Id_Karyawan,
                 karyawan.Nama_Karyawan,
                 karyawan.Email_Karyawan,
@@ -167,7 +167,7 @@ namespace AplikasiAbsensi.Core.Services
                 Waktu = karyawan.Waktu
             };
 
-            daftarPresensi.Add(log);
+            daftarPresensi.Add(log);*/
         }
 
         private void TampilkanRiwayatPresensi()

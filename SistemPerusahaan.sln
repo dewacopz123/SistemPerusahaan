@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AplikasiAbsensi.CLI", "AplikasiAbsensi.CLI\AplikasiAbsensi.CLI.csproj", "{1BD46B66-2B31-419B-81FF-34EC04AA2D1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplikasiAbsensi.WebApi", "AplikasiAbsensi.WebApi\AplikasiAbsensi.WebApi.csproj", "{9DB4EF0E-6F27-421F-915F-C802A81DCCBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AplikasiAbsensi.WebApi", "AplikasiAbsensi.WebApi\AplikasiAbsensi.WebApi.csproj", "{9DB4EF0E-6F27-421F-915F-C802A81DCCBB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AplikasiAbsensi.Core", "AplikasiAbsensi.Core\AplikasiAbsensi.Core.csproj", "{EBF4F4F2-F79B-410F-B6AC-EF3513CB0A03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplikasiAbsensi.Core", "AplikasiAbsensi.Core\AplikasiAbsensi.Core.csproj", "{EBF4F4F2-F79B-410F-B6AC-EF3513CB0A03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1BD46B66-2B31-419B-81FF-34EC04AA2D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BD46B66-2B31-419B-81FF-34EC04AA2D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BD46B66-2B31-419B-81FF-34EC04AA2D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BD46B66-2B31-419B-81FF-34EC04AA2D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DB4EF0E-6F27-421F-915F-C802A81DCCBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DB4EF0E-6F27-421F-915F-C802A81DCCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DB4EF0E-6F27-421F-915F-C802A81DCCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
