@@ -113,7 +113,7 @@ namespace AplikasiAbsensi.Core.Services
 
 
 
-        private void CheckIn(int karyawanIndex)
+        public void CheckIn(int karyawanIndex)
         {
             var karyawan = daftarKaryawan[karyawanIndex];
             if (karyawan.CheckInTime == null)
@@ -132,7 +132,7 @@ namespace AplikasiAbsensi.Core.Services
             }
         }
 
-        private void CheckOut(int karyawanIndex)
+        public void CheckOut(int karyawanIndex)
         {
             var karyawan = daftarKaryawan[karyawanIndex];
             if (karyawan.CheckInTime == null)
