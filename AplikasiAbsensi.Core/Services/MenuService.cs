@@ -11,6 +11,7 @@ namespace AplikasiAbsensi.Core.Services
         private List<Karyawan> daftarKaryawan = new();
         private LogManager<Karyawan> logManager = new();
         JobdeskService jobdeskService = new JobdeskService();
+        PenggajihanService penggajihanService = new PenggajihanService();
 
 
 
@@ -50,11 +51,11 @@ namespace AplikasiAbsensi.Core.Services
                         jobdeskService.TampilkanMenuJobdesk(daftarKaryawan);
                         break;
                     case "4":
-                        kelola.TampilkanMenukaryawan(); // ← hanya dipanggil jika user pilih opsi 4
+                        kelola.TampilkanMenukaryawan();
                         break;
                     case "5":
-/*                        penggajihan.TampilkanMenuUtama();
-*/                        break;
+                        penggajihanService.TampilkanMenuUtama();
+                        break;
                     case "6":
                         lanjut = false;
                         break;

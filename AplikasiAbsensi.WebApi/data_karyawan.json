@@ -6,15 +6,13 @@
     "Phone_Karyawan": "010",
     "Role": 1,
     "Status": 1,
-    "Gaji": 0,
+    "Gaji": 2000000,
     "JobdeskId": 1,
     "Jobdesk": {
       "IdJobdesk": 1,
-      "NamaJobdesk": "Developer",
+      "NamaJobdesk": "test1",
       "TugasUtama": [
-        "Coding",
-        "Debugging",
-        "Code Review"
+        "negetes"
       ]
     },
     "CheckInTime": null,
@@ -29,7 +27,7 @@
     "Phone_Karyawan": "123",
     "Role": 1,
     "Status": 0,
-    "Gaji": 0,
+    "Gaji": 3000000,
     "JobdeskId": 2,
     "Jobdesk": {
       "IdJobdesk": 2,
@@ -87,11 +85,39 @@
     "Role": 1,
     "Status": 0,
     "Gaji": 0,
-    "JobdeskId": 0,
-    "Jobdesk": null,
+    "JobdeskId": 1,
+    "Jobdesk": {
+      "IdJobdesk": 1,
+      "NamaJobdesk": "test1",
+      "TugasUtama": [
+        "negetes"
+      ]
+    },
     "CheckInTime": null,
     "CheckOutTime": null,
     "Waktu": "2025-05-16T22:50:42.2817606+07:00",
+    "Tipe": null
+  },
+  {
+    "Id_Karyawan": 6,
+    "Nama_Karyawan": "Jek",
+    "Email_Karyawan": "Email1",
+    "Phone_Karyawan": "0812",
+    "Role": 1,
+    "Status": 1,
+    "Gaji": 0,
+    "JobdeskId": 5,
+    "Jobdesk": {
+      "IdJobdesk": 5,
+      "NamaJobdesk": "Code",
+      "TugasUtama": [
+        "html",
+        "css"
+      ]
+    },
+    "CheckInTime": null,
+    "CheckOutTime": null,
+    "Waktu": "2025-05-21T08:50:45.9456425+07:00",
     "Tipe": null
   }
 ]

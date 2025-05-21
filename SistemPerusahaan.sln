@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplikasiAbsensi.WebApi", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplikasiAbsensi.Core", "AplikasiAbsensi.Core\AplikasiAbsensi.Core.csproj", "{EBF4F4F2-F79B-410F-B6AC-EF3513CB0A03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobdeskLibary", "JobdeskLibary\JobdeskLibary.csproj", "{35369A7D-5B2E-45DE-99CF-9EA81A43D5D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EBF4F4F2-F79B-410F-B6AC-EF3513CB0A03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBF4F4F2-F79B-410F-B6AC-EF3513CB0A03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBF4F4F2-F79B-410F-B6AC-EF3513CB0A03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35369A7D-5B2E-45DE-99CF-9EA81A43D5D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35369A7D-5B2E-45DE-99CF-9EA81A43D5D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35369A7D-5B2E-45DE-99CF-9EA81A43D5D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35369A7D-5B2E-45DE-99CF-9EA81A43D5D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

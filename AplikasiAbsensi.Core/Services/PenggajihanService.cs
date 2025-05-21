@@ -1,12 +1,12 @@
-using AplikasiAbsensi.Core.Models;
-using AplikasiAbsensi.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AplikasiAbsensi.Core.Models;
+using AplikasiAbsensi.Core.Helpers;
 
-namespace AplikasiAbsensi.Core
+namespace AplikasiAbsensi.Core.Services
 {
-    public class Penggajihan
+    public class PenggajihanService
     {
         private enum State
         {
@@ -17,12 +17,12 @@ namespace AplikasiAbsensi.Core
         private State currentState;
         private List<Karyawan> dataKaryawan;
 
-/*        public Penggajihan(KaryawanService karyawanService)
+        public PenggajihanService()
         {
-            dataKaryawan = karyawanService.GetSampleKaryawan(); // gunakan referensi
+            dataKaryawan = PenggajihanHelper.LoadData();
             currentState = State.MenuUtama;
         }
-*/
+
         public void TampilkanMenuUtama()
         {
             while (currentState != State.Keluar)
@@ -95,7 +95,8 @@ namespace AplikasiAbsensi.Core
             Console.WriteLine("=== DAFTAR GAJI KARYAWAN ===");
             foreach (var k in dataKaryawan)
             {
-                Console.WriteLine($"ID: {k.Id_Karyawan} | Nama: {k.Nama_Karyawan} | Gaji: Rp {k.Gaji:N0}");
+                string jobdeskNama = k.Jobdesk != null ? k.Jobdesk.NamaJobdesk : "-";
+                Console.WriteLine($"ID: {k.Id_Karyawan} | Nama: {k.Nama_Karyawan} | Gaji: Rp {k.Gaji:N0} | Jobdesk: {jobdeskNama}");
             }
         }
 
@@ -113,6 +114,7 @@ namespace AplikasiAbsensi.Core
                     if (int.TryParse(Console.ReadLine(), out int nilaiBaru))
                     {
                         karyawan.Gaji = nilaiBaru;
+                        PenggajihanHelper.SimpanData(dataKaryawan);
                         Console.WriteLine("Gaji berhasil diperbarui.");
                     }
                     else
@@ -141,11 +143,16 @@ namespace AplikasiAbsensi.Core
                 if (karyawan != null)
                 {
                     Console.WriteLine($"Gaji Saat Ini: Rp {karyawan.Gaji:N0}");
-                    Console.Write("Yakin ingin menghapus? (y/n): ");
-                    if (Console.ReadLine().ToLower() == "y")
+                    Console.Write("Yakin ingin menghapus gaji? (y/n): ");
+                    if (Console.ReadLine().Trim().ToLower() == "y")
                     {
                         karyawan.Gaji = 0;
+                        PenggajihanHelper.SimpanData(dataKaryawan);
                         Console.WriteLine("Gaji berhasil dihapus.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Hapus gaji dibatalkan.");
                     }
                 }
                 else

@@ -1,11 +1,9 @@
 [
   {
     "IdJobdesk": 1,
-    "NamaJobdesk": "Developer",
+    "NamaJobdesk": "test1",
     "TugasUtama": [
-      "Coding",
-      "Debugging",
-      "Code Review"
+      "negetes"
     ]
   },
   {
@@ -27,6 +25,14 @@
     "NamaJobdesk": "ef",
     "TugasUtama": [
       "efefef"
+    ]
+  },
+  {
+    "IdJobdesk": 5,
+    "NamaJobdesk": "Code",
+    "TugasUtama": [
+      "html",
+      "css"
     ]
   }
 ]

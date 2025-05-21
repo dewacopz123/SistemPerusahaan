@@ -18,20 +18,8 @@ namespace Aplikasi_Absensi_Perusahaan.Controllers
             var karyawanList = KaryawanHelper.LoadKaryawan();
             return Ok(karyawanList);
         }
-
-        [HttpGet("jobdesk")]
-        public IActionResult GetJobDesk()
-        {
-            var jobdeskList = JobdeskHelper.LoadJobdesk();
-            return Ok(jobdeskList);
-        }
         
-        [HttpGet("presensi")]
-        public IActionResult GetPresensi()
-        {
-            var presensiList = PresensiHelper.LoadPresensi();
-            return Ok(presensiList);
-        }
+        
 
     }
 }
