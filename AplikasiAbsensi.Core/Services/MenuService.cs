@@ -38,7 +38,7 @@ namespace AplikasiAbsensi.Core.Services
                 Console.WriteLine($"=== MENU UTAMA - {userLogin.Nama_Karyawan} (Role: {userLogin.Role}) ===");
                 Console.WriteLine("1. Melihat Jobdesk (via API)");
                 Console.WriteLine("2. Melakukan Presensi");
-                if (userLogin.Role == 2)
+                if (userLogin.Role == Role.Manager)
                 {
                     Console.WriteLine("3. Mengelola Jobdesk Karyawan");
                     Console.WriteLine("4. Mengelola Data Karyawan");
@@ -60,13 +60,13 @@ namespace AplikasiAbsensi.Core.Services
                         presensi.PilihMenuPresensi();
                         break;*/
                     case "3":
-                        if (userLogin.Role == 2)
+                        if (userLogin.Role == Role.Manager)
                             jobdeskService.TampilkanMenuJobdesk(new List<Karyawan> { userLogin });
                         else
                             LoginService.TampilTidakPunyaAkses();
                         break;
                     case "4":
-                        if (userLogin.Role == 2)
+                        if (userLogin.Role == Role.Manager)
                             kelola.TampilkanMenukaryawan();
                         else
                             LoginService.TampilTidakPunyaAkses();

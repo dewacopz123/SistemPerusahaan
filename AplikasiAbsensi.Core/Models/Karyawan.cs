@@ -4,22 +4,14 @@ namespace AplikasiAbsensi.Core.Models
 {
     public class Karyawan
     {
-        [JsonPropertyName("Id_Karyawan")]
         public int Id_Karyawan { get; set; }
-
-        [JsonPropertyName("Nama_Karyawan")]
         public string Nama_Karyawan { get; set; }
-
-        [JsonPropertyName("Email_Karyawan")]
         public string Email_Karyawan { get; set; }
-
-        [JsonPropertyName("Phone_Karyawan")]
         public string Phone_Karyawan { get; set; }
 
         public Role Role { get; set; } 
         public int Status { get; set; }
 
-        [JsonPropertyName("Gaji")]
         public int Gaji { get; set; }
 
         public int JobdeskId { get; set; }
