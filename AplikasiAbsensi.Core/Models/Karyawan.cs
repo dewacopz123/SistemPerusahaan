@@ -11,6 +11,7 @@ namespace AplikasiAbsensi.Core.Models
 
         public Role Role { get; set; } 
         public int Status { get; set; }
+
         public int Gaji { get; set; }
 
         public int JobdeskId { get; set; }

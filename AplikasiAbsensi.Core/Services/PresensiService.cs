@@ -123,7 +123,11 @@ namespace AplikasiAbsensi.Core.Services
         {
             var sudahPresensi = daftarPresensi.Any(p => p.Id_Karyawan == karyawan.Id_Karyawan && p.Tipe == "Check-in" && p.Waktu.Date == DateTime.Now.Date);
 
-            if (!sudahPresensi)
+
+        public void CheckIn(int karyawanIndex)
+        {
+            var karyawan = daftarKaryawan[karyawanIndex];
+            if (karyawan.CheckInTime == null)
             {
                 karyawan.CheckInTime = DateTime.Now;
                 karyawan.Tipe = "Check-in";
@@ -139,7 +143,7 @@ namespace AplikasiAbsensi.Core.Services
             }
         }
 
-        private void CheckOut(Karyawan karyawan)
+        public void CheckOut(int karyawanIndex)
         {
             var sudahCheckIn = daftarPresensi.FirstOrDefault(p => p.Id_Karyawan == karyawan.Id_Karyawan && p.Tipe == "Check-in" && p.Waktu.Date == DateTime.Now.Date);
 

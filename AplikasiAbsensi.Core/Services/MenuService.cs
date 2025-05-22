@@ -13,14 +13,22 @@ namespace AplikasiAbsensi.Core.Services
         JobdeskService jobdeskService = new JobdeskService();
         PenggajihanService penggajihanService = new PenggajihanService();
 
-
-
         public void TampilkanMenu()
         {
-            
+            bool keluarAplikasi = false;
 
-                bool lanjut = true;
+            while (!keluarAplikasi)
+            {
+                Console.Clear();
+                var loginService = new LoginService();
+                Console.WriteLine("=== Login ===");
+                Console.Write("Masukkan Nama: ");
+                string nama = Console.ReadLine();
+                Console.Write("Masukkan Email: ");
+                string email = Console.ReadLine();
+                Karyawan userLogin = loginService.Login(nama, email);
 
+            bool lanjut = true;
             var kelola = new MengelolaKaryawan<Karyawan>();
 /*            var karyawanService = new KaryawanService(); // ✅ ditambahkan
 *//*            var penggajihan = new Penggajihan(karyawanService); // ✅ gunakan konstruktor baru
@@ -28,30 +36,39 @@ namespace AplikasiAbsensi.Core.Services
             while (lanjut)
             {
                 Console.Clear();
-                Console.WriteLine("=== SISTEM JOBDESK KARYAWAN ===");
+                Console.WriteLine($"=== MENU UTAMA - {userLogin.Nama_Karyawan} (Role: {userLogin.Role}) ===");
                 Console.WriteLine("1. Melihat Jobdesk (via API)");
                 Console.WriteLine("2. Melakukan Presensi");
-                Console.WriteLine("3. Mengelola Jobdesk Karyawan");
-                Console.WriteLine("4. Mengelola Data Karyawan");
-                Console.WriteLine("5. Mengelola Penggajihan");
-                Console.WriteLine("6. Keluar");
-                Console.Write("Pilihan Anda: ");
-                string input = Console.ReadLine();
+                if (userLogin.Role == Role.Manager)
+                {
+                    Console.WriteLine("3. Mengelola Jobdesk Karyawan");
+                    Console.WriteLine("4. Mengelola Data Karyawan");
+                    Console.WriteLine("5. Mengelola Penggajihan");
+                }
 
-                switch (input)
+                    Console.Write("Pilihan Anda: ");
+                    string pilihan = Console.ReadLine();
+
+                switch (pilihan)
                 {
                     case "1":
-                        //LihatJobdeskViaApi(); 
+                        // LihatJobdeskViaApi();
                         break;
                     case "2":
                         PresensiService presensi = new PresensiService(daftarKaryawan);
                         presensi.PilihMenuPresensi();
                         break;
                     case "3":
-                        jobdeskService.TampilkanMenuJobdesk(daftarKaryawan);
+                        if (userLogin.Role == Role.Manager)
+                            jobdeskService.TampilkanMenuJobdesk(new List<Karyawan> { userLogin });
+                        else
+                            LoginService.TampilTidakPunyaAkses();
                         break;
                     case "4":
-                        kelola.TampilkanMenukaryawan();
+                        if (userLogin.Role == Role.Manager)
+                            kelola.TampilkanMenukaryawan();
+                        else
+                            LoginService.TampilTidakPunyaAkses();
                         break;
                     case "5":
                         penggajihanService.TampilkanMenuUtama();
@@ -60,12 +77,10 @@ namespace AplikasiAbsensi.Core.Services
                         lanjut = false;
                         break;
                     default:
-                        Console.WriteLine("Pilihan tidak valid.");
+                        Console.WriteLine("❌ Pilihan tidak valid.");
                         break;
                 }
 
-                if (lanjut)
-                {
                     Console.WriteLine("\nTekan ENTER untuk kembali ke menu...");
                     Console.ReadLine();
                 }

@@ -2,6 +2,8 @@ using AplikasiAbsensi.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<LoginService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,10 +20,14 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-Task.Run(() =>
+if (!app.Environment.IsProduction())
 {
-    MenuService menu = new MenuService();
-    menu.TampilkanMenu();
-});
+    Task.Run(() =>
+    {
+        MenuService menu = new MenuService();
+        menu.TampilkanMenu();
+    });
+}
+
 
 app.Run(); 
